@@ -10,3 +10,5 @@ require 'bundler/setup'
 Bundler.require(:default, :development)
 
 require_relative '../lib/movie_list/cli.rb'
+require_relative '../lib/movie_list/movie.rb'
+require_relative '../lib/movie_list/api.rb'
