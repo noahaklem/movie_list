@@ -16,7 +16,7 @@ class CLI
   end
 
   def select_movies_or_shows
-    @options = ["Trending Movies", "Trending Shows"]
+    @options = ["Trending Movies", "Trending TV Shows"]
     @options.each.with_index(1) do |option, index|
       puts "#{index}. #{option}"
     end
@@ -34,8 +34,13 @@ class CLI
     puts "\nType: 1 for 'Trending Movies'\n or \nType: 2 for 'Trending Shows'\n"
     selection = gets.strip
     number = convert_selection(selection)
-    if  valid_selection(number, @options)
-      puts "worked"
+    if valid_selection(number, @options) 
+      case number  
+      when 1
+        puts "show_movies"
+      when 2
+        puts "show_tv_shows"
+      end
     else
       puts "\nTry again! Remember use numbers to make a selection.\n"
       get_user_selection
