@@ -46,13 +46,33 @@ class CLI
   end
 
   def show_movies
-    Movie.new("Jingle All the Way")
-    Movie.new("Christmans Story")
     @movies = Movie.all
-    @movies.each {|movie| puts "#{movie.original_title}"}
+    @movies.each.with_index(1) do |movie, index| puts "
+    #{index}. Movie Title: #{movie.original_title}
+       Movie Overview: #{movie.overview}
+       Movie Rating: #{movie.vote_average}\n
+       'WANT TO WATCH THIS MOVIE? 
+       Type #{index} and find out where to watch this movie' "
+    end
+    watch_media_selection
   end
 
   def show_tv_shows
+    # @tv_shows = TVShow.all
     puts "showing tv shows"
+  end
+
+  def watch_media_selection
+    "\nWhich title number would you like to watch?"
+    input = gets.strip
+    number = valid_selection(convert_selection(input), @movies)
+    title = @movie.original_title
+    "\nNice, #{title}!"
+    binding.pry
+    where_to_watch(title)
+  end
+
+  def show_where_to_watch()
+
   end
 end
