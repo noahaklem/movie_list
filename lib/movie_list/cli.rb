@@ -4,16 +4,8 @@ class CLI
 
     puts "\nI am going to help you find trending movies or shows and where to watch them."
 
-    get_user_name
     select_movies_or_shows
     get_user_selection
-  end
-
-  def get_user_name
-    puts "\nPlease enter your name to get started.\n"
-
-    name = gets.strip
-    puts "\nGreat, #{name}! Now, what would you like to see?\n"
   end
 
   def select_movies_or_shows
@@ -39,7 +31,8 @@ class CLI
   end
 
   def get_user_selection
-    puts "\nType: '1' for 'Trending Movies'\n or \nType: '2' for 'Trending Shows'\n"
+    puts "Now, what would you like to see?
+    \nType: '1' for 'Trending Movies'\n or \nType: '2' for 'Trending Shows'\n"
     selection = gets.strip
     number = convert_selection(selection)
     valid_selection(number, @options) ? case_selector(number) : get_user_selection
@@ -67,12 +60,29 @@ class CLI
     selection = gets.strip
     number = convert_selection(selection)
     @movie = valid_selection(number, @movies) ? Movie.find_movie_in_array(number) : watch_media_selection
-    "\nNice, #{@movie.original_title}!"
-    binding.pry
-    request_to_watch(@movie.id)
+    puts "\nNice, #{@movie.original_title}!"
+
+    Movie.request_to_watch(@movie.id)
   end
 
-  def show_where_to_watch()
-
+  def self.show_where_to_watch
+    @locations = Location.all
+    
+    if @locations.empty?
+      puts "Looks like this title is not available for streaming"
+    else
+      @locations.each.with_index(1) do |location, index| 
+        puts " #{index}. #{location.provider_name}"
+      end
+      all_done
+    end
   end
+
+  def self.all_done
+   puts "All done here?\n
+   Enter: 'y' or 'n'"
+   exit
+   selection = gets.strip
+  end
+
 end

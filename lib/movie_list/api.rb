@@ -17,23 +17,25 @@ class API
     response = Net::HTTP.get_response(uri)
     results = JSON.parse(response.body)
 
-    movies = []
+    movies_data = []
     tv_shows = []
     results['results'].each do |media|
-      media['media_type'] == 'movie' ? movies << media : tv_shows << media
+      media['media_type'] == 'movie' ? movies_data << media : tv_shows << media
     end
-
-    Movie.new_from_api(movies)
-
+    Movie.new_from_api(movies_data)
   end
 
-  def where_to_media(id)
-    url = "https://api.themoviedb.org/3/movie/#{id}/watch/providers?api_key=#{ENV['SECRET_KEY']}"
-    uri = URI.parse(url)
-    response = Net::HTTP.get_response(uri)
-    # binding.pry
-    results = JSON.parse(response.body)
-    binding.pry
-    Movie.where_to_watch(results['results']['US'])
+  def self.where_to_watch_media(id=nil)
+    if id === nil
+      puts "Houston, we have a problem"
+    else
+      url = "https://api.themoviedb.org/3/movie/#{id}/watch/providers?api_key=#{ENV['SECRET_KEY']}"
+      uri = URI.parse(url)
+      response = Net::HTTP.get_response(uri)
+      results = JSON.parse(response.body)
+      watch_results = results['results']['US']['rent']
+    
+      Location.where_to_watch(watch_results, id)
+    end
   end
 end
