@@ -27,12 +27,13 @@ class API
 
   end
 
-  def watch_movies
-    url = "https://api.themoviedb.org/3/movie/#{movie_id_from_trending_movies_interaction}/watch/providers?api_key=#{ENV['SECRET_KEY']}"
+  def where_to_media(id)
+    url = "https://api.themoviedb.org/3/movie/#{id}/watch/providers?api_key=#{ENV['SECRET_KEY']}"
     uri = URI.parse(url)
     response = Net::HTTP.get_response(uri)
     # binding.pry
     results = JSON.parse(response.body)
-    .new_from_api(results['results']['US'])
+    binding.pry
+    Movie.where_to_watch(results['results']['US'])
   end
 end

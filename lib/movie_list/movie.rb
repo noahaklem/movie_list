@@ -33,7 +33,11 @@ class Movie
     @@all
   end
 
-  def where_to_watch(movie_number)
+  def self.find_movie_in_array(number)
+    @movie = self.all[number - 1]
+  end
 
+  def request_to_watch(id)
+    API.where_to_media(id)
   end
 end

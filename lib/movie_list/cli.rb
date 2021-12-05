@@ -51,8 +51,8 @@ class CLI
     #{index}. Movie Title: #{movie.original_title}
        Movie Overview: #{movie.overview}
        Movie Rating: #{movie.vote_average}\n
-       'WANT TO WATCH THIS MOVIE? 
-       Type #{index} and find out where to watch this movie' "
+       WANT TO WATCH THIS MOVIE? 
+       Type #{index} and find out where to watch this movie! "
     end
     watch_media_selection
   end
@@ -63,13 +63,13 @@ class CLI
   end
 
   def watch_media_selection
-    "\nWhich title number would you like to watch?"
-    input = gets.strip
-    number = valid_selection(convert_selection(input), @movies)
-    title = @movie.original_title
-    "\nNice, #{title}!"
+    puts "\nWhich title number would you like to watch?"
+    selection = gets.strip
+    number = convert_selection(selection)
+    @movie = valid_selection(number, @movies) ? Movie.find_movie_in_array(number) : watch_media_selection
+    "\nNice, #{@movie.original_title}!"
     binding.pry
-    where_to_watch(title)
+    request_to_watch(@movie.id)
   end
 
   def show_where_to_watch()
