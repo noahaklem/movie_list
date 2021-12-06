@@ -25,7 +25,7 @@ class Location
     @@all
   end
 
-  def self.where_to_watch(watch_results, id)
+  def self.where_to_watch_movie(watch_results, id)
     @movie = Movie.find_by_id(id)
     watch_results.each do |location|
       self.new(location)

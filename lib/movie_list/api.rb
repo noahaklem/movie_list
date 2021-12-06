@@ -56,27 +56,34 @@ class API
     end
   end
 
-  def where_to_watch_movie(id=nil)
-    if id === nil
-      puts "Houston, we have a problem"
-    else
-      make_movie_watch_request(id)
-      Location.where_to_watch(@where_to_watch, id)
-    end
-  end
-
   def organize_where_to_watch_data(data)
     data.each do |location| 
       @where_to_watch << location if !location.empty? 
     end
   end
 
+  def where_to_watch_movie(id=nil)
+    if id === nil
+      puts "Houston, we have a problem"
+    else
+      make_movie_watch_request(id)
+      Location.where_to_watch_movie(@where_to_watch, id)
+    end
+  end
+
   def make_movie_watch_request(id)
     url = "https://api.themoviedb.org/3/movie/#{id}/watch/providers?api_key=#{ENV['SECRET_KEY']}"
-      uri = URI.parse(url)
-      response = Net::HTTP.get_response(uri)
-      results = JSON.parse(response.body)
-      results['results'] == {} ? default_movie_results(results['results']) : organize_where_to_watch_data(results['results']['US']['rent'])
+    uri = URI.parse(url)
+    response = Net::HTTP.get_response(uri)
+    results = JSON.parse(response.body)
+   
+    if results['results'] == {} 
+      default_movie_results(results['results'])
+    else
+      organize_where_to_watch_data(results['results']['US']['flatrate']) if results['results']['US']['flatrate']
+      organize_where_to_watch_data(results['results']['US']['buy']) if results['results']['US']['buy']
+      organize_where_to_watch_data(results['results']['US']['rent']) if results['results']['US']['rent'] 
+    end
   end
 
   def default_movie_results(results)
@@ -85,7 +92,7 @@ class API
     results["display_priority"] = "1"
     results["logo_path"] = nil
     results["provider_id"] = "1"
-    results["provider_name"] = "This title may still be in theaters or only on Netflix."
+    results["provider_name"] = "This title may still be in theaters only"
     values << results
     organize_where_to_watch_data(values)
   end
@@ -107,9 +114,9 @@ class API
     if results['results'] == {}  
       default_show_results(results['results']) 
     else
-      organize_where_to_watch_data(results['results']['US']['ads'])
-      organize_where_to_watch_data(results['results']['US']['flatrate'])
-      organize_where_to_watch_data(results['results']['US']['buy'])
+      organize_where_to_watch_data(results['results']['US']['ads']) if results['results']['US']['ads']
+      organize_where_to_watch_data(results['results']['US']['flatrate']) if results['results']['US']['flatrate']
+      organize_where_to_watch_data(results['results']['US']['buy']) if results['results']['US']['buy']
     end
   end
 
@@ -119,7 +126,7 @@ class API
     results["display_priority"] = "1"
     results["logo_path"] = nil
     results["provider_id"] = "1"
-    results["provider_name"] = "This title may still be in theaters or only on Netflix."
+    results["provider_name"] = "This title may still be in theaters only."
     values << results
     organize_where_to_watch_data(values)
   end

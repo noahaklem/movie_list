@@ -18,10 +18,10 @@ class CLI
     puts "Hi! Welcome to Movie List! \n"
 
     puts "\nI am going to help you find trending movies or shows and where to watch them."
-    while @exit_program == 'n'
+    # while @exit_program == 'n'
       select_movies_or_shows
       get_user_selection
-    end
+    # end
   end
 
   def select_movies_or_shows
@@ -101,10 +101,10 @@ class CLI
   def all_done
    puts "\nAll done here?\n
    Enter: 'y' or 'n'"
-    @exit_program = gets.strip
+    exit_program = gets.strip
     case exit_program
       when 'y' then exit
-      when 'n' then @exit_program = 'n'
+      when 'n' then exit
     end
   end
 
