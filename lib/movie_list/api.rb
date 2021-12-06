@@ -56,7 +56,7 @@ class API
     end
   end
 
-  def where_to_watch_media(id=nil)
+  def where_to_watch_movie(id=nil)
     if id === nil
       puts "Houston, we have a problem"
     else
@@ -71,15 +71,15 @@ class API
     end
   end
 
-  def make_watch_request(id)
+  def make_movie_watch_request(id)
     url = "https://api.themoviedb.org/3/movie/#{id}/watch/providers?api_key=#{ENV['SECRET_KEY']}"
       uri = URI.parse(url)
       response = Net::HTTP.get_response(uri)
       results = JSON.parse(response.body)
-      results['results'] == {} ? default_results(results['results']) : organize_where_to_watch_data(results['results']['US']['rent'])
+      results['results'] == {} ? default_movie_results(results['results']) : organize_where_to_watch_data(results['results']['US']['rent'])
   end
 
-  def default_results(results)
+  def default_movie_results(results)
     values = []
     results = {}
     results["display_priority"] = "1"
@@ -90,4 +90,37 @@ class API
     organize_where_to_watch_data(values)
   end
 
+  def where_to_watch_show(id=nil)
+    if id === nil
+      puts "Houston, we have a problem"
+    else
+      make_show_watch_request(id)
+      Location.where_to_watch_show(@where_to_watch, id)
+    end
+  end
+
+  def make_show_watch_request(show_id)
+    url = "https://api.themoviedb.org/3/tv/#{show_id}/watch/providers?api_key=#{ENV['SECRET_KEY']}"
+    uri = URI.parse(url)
+    response = Net::HTTP.get_response(uri)
+    results = JSON.parse(response.body)
+    if results['results'] == {}  
+      default_show_results(results['results']) 
+    else
+      organize_where_to_watch_data(results['results']['US']['ads'])
+      organize_where_to_watch_data(results['results']['US']['flatrate'])
+      organize_where_to_watch_data(results['results']['US']['buy'])
+    end
+  end
+
+  def default_show_results(results)
+    values = []
+    results = {}
+    results["display_priority"] = "1"
+    results["logo_path"] = nil
+    results["provider_id"] = "1"
+    results["provider_name"] = "This title may still be in theaters or only on Netflix."
+    values << results
+    organize_where_to_watch_data(values)
+  end
 end

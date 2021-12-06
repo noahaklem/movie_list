@@ -45,7 +45,7 @@ class Movie
   end
 
   def self.request_to_watch(id)
-    API.new.where_to_watch_media(id)
+    API.new.where_to_watch_movie(id)
   end
 
   def self.find_by_id(movie_id)

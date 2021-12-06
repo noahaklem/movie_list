@@ -34,6 +34,15 @@ class Location
     CLI.all.last.show_where_to_watch(self.all)
   end
 
+  def self.where_to_watch_show(watch_results, id)
+    @show = Show.find_by_id(id)
+    watch_results.each do |location|
+      self.new(location)
+      @show.locations << self
+    end
+    CLI.all.last.show_where_to_watch(self.all)
+  end
+
   def assign_values(values)
     values.each {|k, v| self.send("#{k}=", v)}
   end

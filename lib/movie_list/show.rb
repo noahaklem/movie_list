@@ -44,8 +44,8 @@ class Show
     show = self.all[number - 1]
   end
 
-  def self.request_to_watch(id)
-    API.new.where_to_watch_media(id)
+  def self.request_to_watch(show_id)
+    API.new.where_to_watch_show(show_id)
   end
 
   def self.find_by_id(show_id)
