@@ -5,6 +5,7 @@ class API
   def initialize
     @movies_data = []
     @tv_shows_data = []
+    @where_to_watch = []
     save
   end
 
@@ -33,27 +34,60 @@ class API
     response = Net::HTTP.get_response(uri)
     results = JSON.parse(response.body)
 
-    organize_movies_data(results['results'])
+    organize_data(results['results'])
 
     Movie.new_from_api(@movies_data)
   end
 
-  def organize_movies_data(data)
+  def get_tv_shows
+    url = "https://api.themoviedb.org/3/trending/all/day?api_key=#{ENV['SECRET_KEY']}"
+    uri = URI.parse(url)
+    response = Net::HTTP.get_response(uri)
+    results = JSON.parse(response.body)
+
+    organize_data(results['results'])
+
+    Show.new_from_api(@tv_shows_data)
+  end
+
+  def organize_data(data)
     data.each do |media|
       media['media_type'] == 'movie' ? @movies_data << media : @tv_shows_data << media
     end
   end
 
-  # def where_to_watch_media(id=nil)
-  #   if id === nil
-  #     puts "Houston, we have a problem"
-  #   else
-  #     url = "https://api.themoviedb.org/3/movie/#{id}/watch/providers?api_key=#{ENV['SECRET_KEY']}"
-  #     uri = URI.parse(url)
-  #     response = Net::HTTP.get_response(uri)
-  #     results = JSON.parse(response.body)
-  #     watch_results = results['results']['US']['rent']
-  #     Location.where_to_watch(watch_results, id)
-  #   end
-  # end
+  def where_to_watch_media(id=nil)
+    if id === nil
+      puts "Houston, we have a problem"
+    else
+      make_movie_watch_request(id)
+      Location.where_to_watch(@where_to_watch, id)
+    end
+  end
+
+  def organize_where_to_watch_data(data)
+    data.each do |location| 
+      @where_to_watch << location if !location.empty? 
+    end
+  end
+
+  def make_watch_request(id)
+    url = "https://api.themoviedb.org/3/movie/#{id}/watch/providers?api_key=#{ENV['SECRET_KEY']}"
+      uri = URI.parse(url)
+      response = Net::HTTP.get_response(uri)
+      results = JSON.parse(response.body)
+      results['results'] == {} ? default_results(results['results']) : organize_where_to_watch_data(results['results']['US']['rent'])
+  end
+
+  def default_results(results)
+    values = []
+    results = {}
+    results["display_priority"] = "1"
+    results["logo_path"] = nil
+    results["provider_id"] = "1"
+    results["provider_name"] = "This title may still be in theaters or only on Netflix."
+    values << results
+    organize_where_to_watch_data(values)
+  end
+
 end

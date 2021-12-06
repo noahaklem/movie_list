@@ -1,5 +1,7 @@
 class Movie
 
+  attr_accessor :locations
+
   # You need these: 
   # :id, :original_title, :overview, :vote_average, 
   # :location, :release_date
@@ -7,6 +9,7 @@ class Movie
   @@all = []
 
   def initialize(movie_data)
+    @locations = []
     attrs_from_data(movie_data)
     save
   end
@@ -30,15 +33,15 @@ class Movie
     movies_data.each do |movie_data|
       self.new(movie_data)
     end
-    CLI.show_movies(self.all)
+    CLI.all.last.show_movies(self.all)
   end
 
   def self.request_movies
-    API.new.get_movies if self.all.empty?
+    API.new.get_movies if self.all.empty? # might need logic
   end
   
   def self.find_movie_in_array(number)
-    self.all[number - 1]
+    movie = self.all[number - 1]
   end
 
   def self.request_to_watch(id)
