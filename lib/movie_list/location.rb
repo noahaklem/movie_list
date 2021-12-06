@@ -25,25 +25,30 @@ class Location
     @@all
   end
 
-  def self.where_to_watch_movie(watch_results, id)
-    @movie = Movie.find_by_id(id)
+  def self.where_to_watch(watch_results, data)
+    data.class == Show ? media = Show.find_by_id(data.id) : media = Movie.find_by_id(data.id)
     watch_results.each do |location|
       self.new(location)
-      @movie.locations << self
+      media.locations << location
     end
     CLI.all.last.show_where_to_watch(self.all)
   end
 
-  def self.where_to_watch_show(watch_results, id)
-    @show = Show.find_by_id(id)
-    watch_results.each do |location|
-      self.new(location)
-      @show.locations << self
-    end
-    CLI.all.last.show_where_to_watch(self.all)
-  end
+  # def self.where_to_watch_movie(watch_results, id)
+  #   @movie = Movie.find_by_id(id)
+  #   watch_results.each do |location|
+  #     self.new(location)
+  #     @movie.locations << location
+  #   end
+  #   CLI.all.last.show_where_to_watch(self.all)
+  # end
 
-  def assign_values(values)
-    values.each {|k, v| self.send("#{k}=", v)}
-  end
+  # def self.where_to_watch_show(watch_results, id)
+  #   @show = Show.find_by_id(id)
+  #   watch_results.each do |location|
+  #     self.new(location)
+  #     @show.locations << self
+  #   end
+  #   CLI.all.last.show_where_to_watch(self.all)
+  # end
 end

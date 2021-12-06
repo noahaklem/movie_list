@@ -37,7 +37,9 @@ class Show
   end
 
   def self.request_shows
-    API.new.get_tv_shows if self.all.empty? # might need logic
+    API.new.get_data if self.all.empty?
+
+    self.all
   end
   
   def self.find_show_in_array(number)
@@ -45,7 +47,8 @@ class Show
   end
 
   def self.request_to_watch(show_id)
-    API.new.where_to_watch_show(show_id)
+    API.new.where_to_watch_show(show_id) if self.all.last.locations.empty?
+    self.all.last.locations
   end
 
   def self.find_by_id(show_id)
