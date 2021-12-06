@@ -27,4 +27,8 @@ class Location
     end
     CLI.show_where_to_watch
   end
+
+  def assign_values(values)
+    values.each {|k, v| self.send("#{k}=", v)}
+  end
 end
