@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require_relative '../config/environment.rb'
+require_relative '../lib/movie_list.rb'
 
 # code to run program here
-CLI.new.call
+MovieList::CLI.new.call

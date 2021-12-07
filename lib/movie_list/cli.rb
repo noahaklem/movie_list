@@ -1,4 +1,4 @@
-class CLI
+class MovieList::CLI
   attr_accessor :movies, :shows
   @@all = []
 
@@ -37,15 +37,15 @@ class CLI
 
   def case_selector(number)
     case number  
-    when 1 then Movie.request_movies #can use the then here
-    when 2 then Show.request_shows #can use the then here too
+    when 1 then MovieList::Movie.request_movies #can use the then here
+    when 2 then MovieList::Show.request_shows #can use the then here too
     end
   end
 
   def show(all_data)
     all_data.each.with_index(1) do |data, index| 
       puts "
-      #{index}. Title: #{data.class == Show ? data.name : data.title} 
+      #{index}. Title: #{data.class == MovieList::Show ? data.name : data.title} 
         Overview: #{data.overview}
         Rating: #{data.vote_average}\n
         WANT TO WATCH THIS TITLE?
@@ -58,7 +58,7 @@ class CLI
     puts "\nWhich title number would you like to watch?"
     number = convert_selection(gets.strip)
     valid_selection(number, all_data) ? data = all_data.first.class.find_in_array(number) : get_selection
-    puts "\nNice choice! Here's where to watch #{data.class == Show ? data.name : data.title}"
+    puts "\nNice choice! Here's where to watch #{data.class == MovieList::Show ? data.name : data.title}"
     data.class.request_to_watch(data)
   end
 

@@ -1,4 +1,4 @@
-class Movie
+class MovieList::Movie
 
   attr_accessor :locations
 
@@ -33,12 +33,12 @@ class Movie
     movies_data.each do |movie_data|
       new(movie_data)
     end
-    CLI.all.last.show(self.all)
+    MovieList::CLI.all.last.show(self.all)
   end
 
   def self.request_movies
-    API.new.get_data(self) if self.all.empty? 
-    CLI.all.last.show(self.all)
+    MovieList::API.new.get_data(self) if self.all.empty? 
+    MovieList::CLI.all.last.show(self.all)
   end
   
   def self.find_in_array(number)
@@ -46,7 +46,7 @@ class Movie
   end
 
   def self.request_to_watch(data)
-    API.new.where_to_watch(data)
+    MovieList::API.new.where_to_watch(data)
   end
 
   def self.find_by_id(movie_id)

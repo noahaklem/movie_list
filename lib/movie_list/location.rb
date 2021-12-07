@@ -1,4 +1,4 @@
-class Location
+class MovieList::Location
   # You need these
   # :provider_id, :provider_name
 
@@ -26,12 +26,12 @@ class Location
 
   def self.new_from_api(locations_data, data)
     reset
-    data.class == Show ? media = Show.find_by_id(data.id) : media = Movie.find_by_id(data.id)
+    data.class == MovieList::Show ? media = MovieList::Show.find_by_id(data.id) : media = MovieList::Movie.find_by_id(data.id)
     locations_data.each do |location|
       self.new(location)
     end
     media.locations << self.all
-    CLI.all.last.show_where_to_watch(self.all)
+    MovieList::CLI.all.last.show_where_to_watch(self.all)
   end
 
   def self.reset

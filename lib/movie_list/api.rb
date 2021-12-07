@@ -1,4 +1,4 @@
-class API
+class MovieList::API
 
   @@all = []
 
@@ -23,7 +23,7 @@ class API
     response = Net::HTTP.get_response(uri)
     results = JSON.parse(response.body)['results']
     organize_data(results)
-    data_class == Show ? data_class.new_from_api(@shows_data) : data_class.new_from_api(@movies_data)
+    data_class == MovieList::Show ? data_class.new_from_api(@shows_data) : data_class.new_from_api(@movies_data)
   end
   
   def organize_data(data)
@@ -37,16 +37,16 @@ class API
   end
   
   def make_watch_request(data)
-    data.class == Show ? url = "https://api.themoviedb.org/3/tv/#{data.id}/watch/providers?api_key=#{ENV['SECRET_KEY']}" : url = "https://api.themoviedb.org/3/movie/#{data.id}/watch/providers?api_key=#{ENV['SECRET_KEY']}"
+    data.class == MovieList::Show ? url = "https://api.themoviedb.org/3/tv/#{data.id}/watch/providers?api_key=#{ENV['SECRET_KEY']}" : url = "https://api.themoviedb.org/3/movie/#{data.id}/watch/providers?api_key=#{ENV['SECRET_KEY']}"
     uri = URI.parse(url)
     response = Net::HTTP.get_response(uri)
     results = JSON.parse(response.body)['results']['US']
     !results || results == {} ? default_results(results) : where_to_watch_data(data, results) 
-    Location.new_from_api(@locations_data, data)
+    MovieList::Location.new_from_api(@locations_data, data)
   end
 
   def where_to_watch_data(data, results)
-    data.class == Show ? show_watch_data(results) : movie_watch_data(results)
+    data.class == MovieList::Show ? show_watch_data(results) : movie_watch_data(results)
   end
   
   def movie_watch_data(results)

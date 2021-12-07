@@ -1,17 +1,38 @@
-# movie_list
-Movie List
+# MovieList
 
-A CLI project that finds and organizes movies, or shows, from an external source then displays them to the user and where to watch them.
+Welcome to Movie_List! This gem is designed to get trending movies and shows from an external source API then display the results to the user. As an added bonus, the user will be able to input a title number to get a list of where the movie or show is available to watch. Enjoy!
 
-Using net/http to retreive data from TheMovieDB.com API, makes new Ruby classes to represent the data which is then visible through the command line.
+## Installation
 
-I used dotenv to hide my API key but TheMovieDB.com can provide you a key as well. 
+Add this line to your application's Gemfile:
 
-Contributing
-Bug reports and pull requests are welcome on GitHub at https://github.com/noahaklem/movie_list. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the Contributor Covenant code of conduct.
+```ruby
+gem 'movie_list'
+```
 
-License
-The gem is available as open source under the terms of the MIT License.
+And then execute:
 
-Code of Conduct
-Everyone interacting in the movie_list project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the code of conduct.
+    $ bundle install
+
+Or install it yourself as:
+
+    $ gem install movie_list
+
+## Usage
+
+
+TODO: Write usage instructions here
+
+## Development
+
+After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+
+To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+
+## Contributing
+
+Bug reports and pull requests are welcome on GitHub at https://github.com/noahaklem/movie_list.
+
+## License
+
+The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
