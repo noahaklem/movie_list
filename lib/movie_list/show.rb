@@ -29,26 +29,25 @@ class Show
     @@all << self
   end
 
-  def self.new_from_api(tv_show_data)
-    tv_show_data.each do |show_data|
-      self.new(show_data)
+  def self.new_from_api(shows_data)
+    shows_data.each do |show_data|
+      new(show_data)
     end
-    CLI.all.last.show_tv_shows(self.all)
+    CLI.all.last.show(self.all)
   end
 
   def self.request_shows
-    API.new.get_data if self.all.empty?
-
-    self.all
+    API.new.get_data(self) if self.all.empty?
+    
+    CLI.all.last.show(self.all)
   end
   
-  def self.find_show_in_array(number)
+  def self.find_in_array(number)
     show = self.all[number - 1]
   end
 
-  def self.request_to_watch(show_id)
-    API.new.where_to_watch_show(show_id) if self.all.last.locations.empty?
-    self.all.last.locations
+  def self.request_to_watch(data)
+    API.new.where_to_watch(data)
   end
 
   def self.find_by_id(show_id)

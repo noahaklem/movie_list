@@ -4,8 +4,8 @@ class API
 
   def initialize
     @movies_data = []
-    @tv_shows_data = []
-    @where_to_watch_locations = []
+    @shows_data = []
+    @locations_data = []
     save
   end
 
@@ -23,12 +23,12 @@ class API
     response = Net::HTTP.get_response(uri)
     results = JSON.parse(response.body)['results']
     organize_data(results)
-    data_class == Show ? data_class.new_from_api(@tv_show_data) : data_class.new_from_api(@movies_data)
+    data_class == Show ? data_class.new_from_api(@shows_data) : data_class.new_from_api(@movies_data)
   end
   
   def organize_data(data)
     data.each do |media|
-      media['media_type'] == 'movie' ? @movies_data << media : @tv_shows_data << media
+      media['media_type'] == 'movie' ? @movies_data << media : @shows_data << media
     end
   end
   
@@ -42,9 +42,9 @@ class API
     response = Net::HTTP.get_response(uri)
     results = JSON.parse(response.body)['results']['US']
     !results || results == {} ? default_results(results) : where_to_watch_data(data, results) 
-    Location.where_to_watch(@where_to_watch_locations, data)
+    Location.new_from_api(@locations_data, data)
   end
-  
+
   def where_to_watch_data(data, results)
     data.class == Show ? show_watch_data(results) : movie_watch_data(results)
   end
@@ -76,8 +76,7 @@ class API
   
   def organize_where_to_watch_data(data)
     data.each do |location| 
-      @where_to_watch_locations << location if !location.empty? 
+      @locations_data << location if !location.empty? 
     end
   end
-
 end

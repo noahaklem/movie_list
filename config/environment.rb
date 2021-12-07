@@ -1,6 +1,7 @@
 require 'dotenv/load'
 require 'httparty'
 require 'open-uri'
+require 'byebug'
 
 require 'net/http'
 require 'json'
