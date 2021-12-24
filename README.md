@@ -21,7 +21,9 @@ Or install it yourself as:
 ## Usage
 
 
-TODO: Write usage instructions here
+TODO: Write usage instructions here:
+
+You will need to get your own API key from themoviedb.com or the application will not be able to get the data.
 
 ## Development
 
