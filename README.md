@@ -33,14 +33,11 @@ Or install it yourself as:
 
 ## Usage
 
-<<<<<<< HEAD
 Feel free to use within the guidelines of the MIT license.
-=======
 
 TODO: Write usage instructions here:
 
 You will need to get your own API key from themoviedb.com or the application will not be able to get the data.
->>>>>>> 04d9179621846cf69096a7d3619a75df89020fc8
 
 ## Development
 
