@@ -3,8 +3,7 @@
     <h2>A Ruby Command Line Project</h2>
     Welcome to Movie_List! This gem is designed to get trending movies and shows from an external source API then display the results to the user. As an added bonus, the user will be able to input a title number to get a list of where the movie or show is available to watch. Enjoy!
 </div>
-<h3>Development Completed By: </h3>
-<p>Noah Klem - 2021</p>
+<h3>Development Completed By: Noah Klem - 2021</h3>
 <div>
     <h4>GET SOCIAL: </h4>
     <a target="_blank" href="https://www.linkedin.com/in/noahaklem"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a>
