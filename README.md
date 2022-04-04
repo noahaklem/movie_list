@@ -1,19 +1,20 @@
 # MovieList
 <div align='center'>
     <h2>A Ruby Command Line Project</h2>
-    <p>Development Completed By:</p>
-    <ul>
-        <li><h3>Noah Klem - 2021</h3></li>
-    </ul>
-    <h5>Contact Information</h5>
-    <p>
-        <a><img src="https://img.shields.io/badge/linkedin-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"></a>
-        <a><img src="https://img.shields.io/badge/gmail-%23D14836.svg?&style=for-the-badge&logo=gmail&logoColor=white"></a>
-    </p>
+    Welcome to Movie_List! This gem is designed to get trending movies and shows from an external source API then display the results to the user. As an added bonus, the user will be able to input a title number to get a list of where the movie or show is available to watch. Enjoy!
 </div>
-Welcome to Movie_List! This gem is designed to get trending movies and shows from an external source API then display the results to the user. As an added bonus, the user will be able to input a title number to get a list of where the movie or show is available to watch. Enjoy!
-
-
+<h3>Development Completed By: </h3>
+<p>Noah Klem - 2021</p>
+<div>
+    <h4>GET SOCIAL: </h4>
+    <a target="_blank" href="https://www.linkedin.com/in/noahaklem"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a>
+    <a target="_blank" href="https://www.twitter.com/"><img src="https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white"></a>
+    <a target="_blank" href="https://www.medium.com/@noahaklem"><img src="https://img.shields.io/badge/Medium-12100E?style=for-the-badge&logo=medium&logoColor=white"></a>
+    <h4>CONTACT ME: </h4>
+    <a href="mailto:noahaklem@gmail.com?subject=Hello%20Noah,%20from%20GitHub"><img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white"></a>
+    <h4>LANGUAGES: </h4>
+    <img src="https://img.shields.io/badge/Ruby-CC342D?style=for-the-badge&logo=ruby&logoColor=white">
+</div>
 
 ## Installation
 
@@ -35,9 +36,7 @@ Or install it yourself as:
 
 Feel free to use within the guidelines of the MIT license.
 
-TODO: Write usage instructions here:
-
-You will need to get your own API key from themoviedb.com or the application will not be able to get the data.
+This application makes use of an API key from themoviedb.com or the application will not be able to get the data.
 
 ## Development
 
