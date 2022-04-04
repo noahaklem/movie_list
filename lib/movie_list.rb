@@ -8,7 +8,7 @@ require 'byebug'
 require 'net/http'
 require 'json'
 
-require 'bundler/setup'
+# require 'bundler/setup'
 
 Bundler.require(:default, :development)
 

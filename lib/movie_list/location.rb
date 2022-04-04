@@ -20,7 +20,7 @@ class MovieList::Location
   def attrs_from_data(locations_data)
     locations_data.each do |k, v|
       self.class.attr_accessor(k)
-      send("#{k}=", v)
+      send("#{k}=", v) 
     end
   end
 
