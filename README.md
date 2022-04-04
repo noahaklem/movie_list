@@ -1,6 +1,6 @@
 # MovieList
 <div align='center'>
-    ## A Ruby Command Line Project
+    <h2>A Ruby Command Line Project</h2>
     <p>Development Completed By:</p>
     <ul>
         <li><h3>Noah Klem - 2021</h3></li>
